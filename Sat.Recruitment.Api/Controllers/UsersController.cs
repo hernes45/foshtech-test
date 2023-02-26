@@ -64,7 +64,8 @@ namespace Sat.Recruitment.Api.Controllers
             catch (Exception ex)
             {
                 this.logger.LogError(ex, "POST /create-user {@user}", user);
-                throw;
+
+                return this.StatusCode(500);
             }
         }
     }
