@@ -8,6 +8,7 @@ namespace Sat.Recruitment.Api.Controllers
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Threading.Tasks;
+    using EnsureThat;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using Sat.Recruitment.Pre.Managers;
@@ -31,7 +32,9 @@ namespace Sat.Recruitment.Api.Controllers
         /// <param name="logger">Instace of the logger.</param>
         public UsersController(IUserManager userManager, ILogger logger)
         {
-            // todo añadir ensures
+            Ensure.Any.IsNotNull(userManager);
+            Ensure.Any.IsNotNull(logger);
+
             this.userManager = userManager;
             this.logger = logger;
         }
@@ -45,7 +48,8 @@ namespace Sat.Recruitment.Api.Controllers
         [Route("/create-user")]
         public async Task<IActionResult> CreateUser(UserViewModel user)
         {
-            // todo añadir ensures
+            Ensure.Any.IsNotNull(user);
+
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest(this.ModelState);

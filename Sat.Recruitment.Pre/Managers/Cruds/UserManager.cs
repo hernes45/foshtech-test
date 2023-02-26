@@ -9,6 +9,7 @@ namespace Sat.Recruitment.Pre.Managers
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using EnsureThat;
     using Microsoft.Extensions.Logging;
     using Sat.Recruitment.Dom.Common;
     using Sat.Recruitment.Dom.Model;
@@ -33,7 +34,10 @@ namespace Sat.Recruitment.Pre.Managers
         /// <param name="logger">logger.</param>
         public UserManager(IGiftService giftService, IUserRepository userRepository, ILogger logger)
         {
-            // todo añadir ensures
+            Ensure.Any.IsNotNull(giftService);
+            Ensure.Any.IsNotNull(userRepository);
+            Ensure.Any.IsNotNull(logger);
+
             this.giftService = giftService;
             this.userRepository = userRepository;
             this.logger = logger;
@@ -42,6 +46,8 @@ namespace Sat.Recruitment.Pre.Managers
         /// <inheritdoc/>
         public async Task CreateAsync(UserViewModel user)
         {
+            Ensure.Any.IsNotNull(user);
+
             this.logger.LogTrace("[UserManager/CreateAsync] Creating user: {0}", user.Name);
 
             var newUser = new User();
@@ -52,7 +58,7 @@ namespace Sat.Recruitment.Pre.Managers
             newUser.Money = await this.giftService.GetMoneyNewUserAsync(user.Money, (UserType)user.UserType).ConfigureAwait(false);
             newUser.Email = UserTools.NormalizeEmail(newUser.Email);
 
-            if (await this.ValidateInsert(newUser).ConfigureAwait(false))
+            if (this.ValidateInsert(newUser))
             {
                 await this.userRepository.AddAsync(newUser);
             }
@@ -69,11 +75,11 @@ namespace Sat.Recruitment.Pre.Managers
         /// </summary>
         /// <param name="user">Instance of the user.</param>
         /// <returns>True if it is ok.</returns>
-        public async Task<bool> ValidateInsert(User user)
+        private bool ValidateInsert(User user)
         {
-            var result = await this.userRepository.FindAsync((item) => !(item.Email == user.Email || item.Phone == user.Phone) && !(user.Name == item.Name && user.Address == item.Address));
+            var result = this.userRepository.FindAsync((item) => !(item.Email == user.Email || item.Phone == user.Phone) && !(user.Name == item.Name && user.Address == item.Address)).Result;
 
-            return result.Any();
+            return !result.Any();
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Sat.Recruitment.Pre.Managers
     using System.Collections.Generic;
     using System.Text;
     using System.Threading.Tasks;
+    using EnsureThat;
     using Microsoft.Extensions.Logging;
     using Sat.Recruitment.Dom.Model;
 
@@ -26,6 +27,8 @@ namespace Sat.Recruitment.Pre.Managers
         /// <param name="logger">Logs instance.</param>
         public LocalGiftManager(ILogger logger)
         {
+            Ensure.Any.IsNotNull(logger);
+
             this.logger = logger;
             this.dictionary = new Dictionary<UserType, IGiftProcess>();
         }

@@ -7,6 +7,7 @@ namespace Sat.Recruitment.Dom.Common
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using EnsureThat;
 
     /// <summary>
     /// Generic pourpose tools.
@@ -20,6 +21,8 @@ namespace Sat.Recruitment.Dom.Common
         /// <returns>Normalized email.</returns>
         public static string NormalizeEmail(string email)
         {
+            Ensure.String.IsNotEmptyOrWhiteSpace(email);
+
             var aux = email.Split(new char[] { '@' }, StringSplitOptions.RemoveEmptyEntries);
             var atIndex = aux[0].IndexOf("+", StringComparison.Ordinal);
             aux[0] = atIndex < 0 ? aux[0].Replace(".", string.Empty) : aux[0].Replace(".", string.Empty).Remove(atIndex);

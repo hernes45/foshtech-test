@@ -8,6 +8,7 @@ namespace Sat.Recruitment.Pre.Services
     using System.Collections.Generic;
     using System.Text;
     using System.Threading.Tasks;
+    using EnsureThat;
     using Sat.Recruitment.Dom.Model;
     using Sat.Recruitment.Pre.Managers;
     using Sat.Recruitment.Pre.Model;
@@ -23,14 +24,14 @@ namespace Sat.Recruitment.Pre.Services
         /// <param name="manager">The gift manager.</param>
         public GiftService(IGiftManager manager)
         {
-            // todo ensure that.<<<<<
+            Ensure.Any.IsNotNull(manager);
+
             this.manager = manager;
         }
 
         /// <inheritdoc/>
         public Task<decimal> GetMoneyNewUserAsync(decimal money, UserType type)
         {
-            // todo ensure that.<<<<<
             return this.manager.GetMoneyAsync(type, money);
         }
     }
