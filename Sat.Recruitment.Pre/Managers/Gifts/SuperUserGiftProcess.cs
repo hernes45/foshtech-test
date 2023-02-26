@@ -11,7 +11,7 @@ namespace Sat.Recruitment.Pre.Managers
     /// <summary>
     ///  Evaluates the gift for super users.
     /// </summary>
-    internal class SuperUSerGiftProcess : IGiftProcess
+    internal class SuperUserGiftProcess : IGiftProcess
     {
         /// <inheritdoc/>
         public decimal Calculate(decimal money)

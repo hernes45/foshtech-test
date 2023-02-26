@@ -11,6 +11,7 @@ namespace Sat.Recruitment.Pre.Managers
     using EnsureThat;
     using Microsoft.Extensions.Logging;
     using Sat.Recruitment.Dom.Model;
+    using static Sat.Recruitment.Pre.Setup;
 
     /// <summary>
     /// Represents a local gift manager evaluator.
@@ -19,14 +20,14 @@ namespace Sat.Recruitment.Pre.Managers
     {
         private readonly ILogger logger;
 
-        private readonly Func<UserType, IGiftProcess> serviceResolver;
+        private readonly ServiceResolver serviceResolver;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LocalGiftManager"/> class.
         /// </summary>
         /// <param name="logger">Logs instance.</param>
         /// <param name="serviceResolver">Service resolver for the gift evaluator.</param>
-        public LocalGiftManager(ILogger logger, Func<UserType, IGiftProcess> serviceResolver)
+        public LocalGiftManager(ILogger<LocalGiftManager> logger, ServiceResolver serviceResolver)
         {
             Ensure.Any.IsNotNull(logger);
             Ensure.Any.IsNotNull(serviceResolver);

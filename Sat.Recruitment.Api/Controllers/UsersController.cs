@@ -30,7 +30,7 @@ namespace Sat.Recruitment.Api.Controllers
         /// </summary>
         /// <param name="userManager">Instance of the manager.</param>
         /// <param name="logger">Instace of the logger.</param>
-        public UsersController(IUserManager userManager, ILogger logger)
+        public UsersController(IUserManager userManager, ILogger<UsersController> logger)
         {
             Ensure.Any.IsNotNull(userManager);
             Ensure.Any.IsNotNull(logger);

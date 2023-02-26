@@ -43,6 +43,9 @@ namespace Sat.Recruitment.Api
         {
             services.AddControllers();
             services.AddSwaggerGen();
+
+            var setup = new Setup();
+            setup.Install(services);
         }
 
         /// <summary>

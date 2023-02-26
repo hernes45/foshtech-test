@@ -32,7 +32,7 @@ namespace Sat.Recruitment.Pre.Managers
         /// <param name="giftService">Implementation of the gift service.</param>
         /// <param name="userRepository">User repository.</param>
         /// <param name="logger">logger.</param>
-        public UserManager(IGiftService giftService, IUserRepository userRepository, ILogger logger)
+        public UserManager(IGiftService giftService, IUserRepository userRepository, ILogger<UserManager> logger)
         {
             Ensure.Any.IsNotNull(giftService);
             Ensure.Any.IsNotNull(userRepository);
@@ -56,7 +56,7 @@ namespace Sat.Recruitment.Pre.Managers
             newUser.Phone = user.Phone;
             newUser.UserType = (UserType)user.UserType;
             newUser.Money = await this.giftService.GetMoneyNewUserAsync(user.Money, (UserType)user.UserType).ConfigureAwait(false);
-            newUser.Email = UserTools.NormalizeEmail(newUser.Email);
+            newUser.Email = UserTools.NormalizeEmail(user.Email);
 
             if (this.ValidateInsert(newUser))
             {
@@ -77,7 +77,7 @@ namespace Sat.Recruitment.Pre.Managers
         /// <returns>True if it is ok.</returns>
         private bool ValidateInsert(User user)
         {
-            var result = this.userRepository.FindAsync((item) => !(item.Email == user.Email || item.Phone == user.Phone) && !(user.Name == item.Name && user.Address == item.Address)).Result;
+            var result = this.userRepository.FindAsync((item) => (item.Email == user.Email || item.Phone == user.Phone) || (user.Name == item.Name && user.Address == item.Address)).Result;
 
             return !result.Any();
         }
