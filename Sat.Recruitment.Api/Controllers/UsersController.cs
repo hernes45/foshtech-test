@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading.Tasks;
+﻿// <copyright file="UsersController.cs" company="Fosh-Tech">
+// Copyright (c) Fosh-Tech. All rights reserved.
+// </copyright>
 
 namespace Sat.Recruitment.Api.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
+
     public class Result
     {
         public bool IsSuccess { get; set; }
@@ -30,7 +33,7 @@ namespace Sat.Recruitment.Api.Controllers
         {
             var errors = "";
 
-            ValidateErrors(name, email, address, phone, ref errors);
+            this.ValidateErrors(name, email, address, phone, ref errors);
 
             if (errors != null && errors != "")
                 return new Result()
@@ -86,8 +89,7 @@ namespace Sat.Recruitment.Api.Controllers
                 }
             }
 
-
-            var reader = ReadUsersFromFile();
+            var reader = this.ReadUsersFromFile();
 
             //Normalize email
             var aux = newUser.Email.Split(new char[] { '@' }, StringSplitOptions.RemoveEmptyEntries);
@@ -110,13 +112,13 @@ namespace Sat.Recruitment.Api.Controllers
                     UserType = line.Split(',')[4].ToString(),
                     Money = decimal.Parse(line.Split(',')[5].ToString()),
                 };
-                _users.Add(user);
+                this._users.Add(user);
             }
             reader.Close();
             try
             {
                 var isDuplicated = false;
-                foreach (var user in _users)
+                foreach (var user in this._users)
                 {
                     if (user.Email == newUser.Email
                         ||
