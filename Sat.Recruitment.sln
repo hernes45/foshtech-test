@@ -13,9 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Presentation", "2. Prese
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Domain", "3. Domain", "{F625D308-8E87-4B4B-9AB7-390CBDE7FFA8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sat.Recruitment.Pre", "Sat.Recruitment.Pre\Sat.Recruitment.Pre\Sat.Recruitment.Pre.csproj", "{30155E04-C6A0-4030-A0DE-5D4967B3409F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sat.Recruitment.Pre", "Sat.Recruitment.Pre\Sat.Recruitment.Pre.csproj", "{30155E04-C6A0-4030-A0DE-5D4967B3409F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sat.Recruitment.Dom", "Sat.Recruitment.Dom\Sat.Recruitment.Dom\Sat.Recruitment.Dom.csproj", "{8999FFE5-C64C-4B03-BBB0-B678E883FCE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sat.Recruitment.Dom", "Sat.Recruitment.Dom\Sat.Recruitment.Dom.csproj", "{8999FFE5-C64C-4B03-BBB0-B678E883FCE3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sat.Recruitment.Dom.Test", "Sat.Recruitment.Dom.Test\Sat.Recruitment.Dom.Test.csproj", "{5095274A-655D-4990-9E72-FE65E73AE3E5}"
 EndProject

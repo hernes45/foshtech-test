@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sat.Recruitment.Pre\Sat.Recruitment.Pre\Sat.Recruitment.Pre.csproj" />
+    <ProjectReference Include="..\Sat.Recruitment.Pre\Sat.Recruitment.Pre.csproj" />
   </ItemGroup>
 
 </Project>
