@@ -19,26 +19,29 @@ namespace Sat.Recruitment.Pre.Managers
     {
         private readonly ILogger logger;
 
-        private readonly Dictionary<UserType, IGiftProcess> dictionary;
+        private readonly Func<UserType, IGiftProcess> serviceResolver;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LocalGiftManager"/> class.
         /// </summary>
         /// <param name="logger">Logs instance.</param>
-        public LocalGiftManager(ILogger logger)
+        /// <param name="serviceResolver">Service resolver for the gift evaluator.</param>
+        public LocalGiftManager(ILogger logger, Func<UserType, IGiftProcess> serviceResolver)
         {
             Ensure.Any.IsNotNull(logger);
+            Ensure.Any.IsNotNull(serviceResolver);
 
             this.logger = logger;
-            this.dictionary = new Dictionary<UserType, IGiftProcess>();
+            this.serviceResolver = serviceResolver;
         }
 
         /// <inheritdoc/>
         public Task<decimal> GetMoneyAsync(UserType type, decimal money)
         {
-            if (this.dictionary.ContainsKey(type))
+            var service = this.serviceResolver.Invoke(type);
+            if (service != null)
             {
-                return Task.FromResult(this.dictionary[type].Calculate(money));
+                return Task.FromResult(service.Calculate(money));
             }
 
             var errorMessage = string.Format("The user type {0} has not been registered in the promotions.", type.ToString());

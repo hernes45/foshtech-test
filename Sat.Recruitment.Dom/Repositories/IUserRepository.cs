@@ -28,6 +28,6 @@ namespace Sat.Recruitment.Dom.Repositories
         /// </summary>
         /// <param name="filter">filter of the user repository.</param>
         /// <returns>Collection of users.</returns>
-        Task<Collection<User>> FindAsync(Func<User, bool> filter);
+        Task<IEnumerable<User>> FindAsync(Func<User, bool> filter);
     }
 }
