@@ -15,7 +15,7 @@ namespace Sat.Recruitment.Pre.Managers
 
     /// <summary>
     /// Represents a local gift manager evaluator.
-    /// This can be replace with some configuration in database to create a proper service resolver.
+    /// NOTE: This can be replace with some configuration in database to create a proper service resolver.
     /// </summary>
     internal class LocalGiftManager : IGiftManager
     {

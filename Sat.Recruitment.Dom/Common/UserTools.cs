@@ -21,7 +21,7 @@ namespace Sat.Recruitment.Dom.Common
         /// <returns>Normalized email.</returns>
         public static string NormalizeEmail(string email)
         {
-            Ensure.String.IsNotEmptyOrWhiteSpace(email);
+            Ensure.String.IsNotNullOrWhiteSpace(email);
 
             var aux = email.Split(new char[] { '@' }, StringSplitOptions.RemoveEmptyEntries);
             var atIndex = aux[0].IndexOf("+", StringComparison.Ordinal);

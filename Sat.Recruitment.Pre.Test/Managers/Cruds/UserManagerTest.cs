@@ -20,7 +20,7 @@ namespace Sat.Recruitment.Test
     /// <summary>
     /// Test of the user manager.
     /// </summary>
-    [CollectionDefinition("UserManager", DisableParallelization = true)]
+    [CollectionDefinition("UserManagerTest", DisableParallelization = true)]
     public class UserManagerTest
     {
         /// <summary>

@@ -29,6 +29,17 @@ namespace Sat.Recruitment.Dom.Repositories
         }
 
         /// <summary>
+        /// Gets the list of users. For testing.
+        /// </summary>
+        internal List<User> Users
+        {
+            get
+            {
+                return this.users;
+            }
+        }
+
+        /// <summary>
         /// Add a new user in the repository.
         /// </summary>
         /// <param name="user">Instance of the new user to be added.</param>
@@ -52,6 +63,7 @@ namespace Sat.Recruitment.Dom.Repositories
 
         private void InitializeList()
         {
+            // I Assume that the file is only for the test, the idea is to connect to the sources using the settings.
             var path = Directory.GetCurrentDirectory() + "/Files/Users.txt";
 
             using (var fileStream = new FileStream(path, FileMode.Open))
