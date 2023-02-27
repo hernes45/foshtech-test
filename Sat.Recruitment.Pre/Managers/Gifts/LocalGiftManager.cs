@@ -15,40 +15,48 @@ namespace Sat.Recruitment.Pre.Managers
 
     /// <summary>
     /// Represents a local gift manager evaluator.
+    /// This can be replace with some configuration in database to create a proper service resolver.
     /// </summary>
     internal class LocalGiftManager : IGiftManager
     {
         private readonly ILogger logger;
 
-        private readonly ServiceResolver serviceResolver;
+        private readonly Dictionary<UserType, IGiftProcess> dictionary;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LocalGiftManager"/> class.
         /// </summary>
         /// <param name="logger">Logs instance.</param>
         /// <param name="serviceResolver">Service resolver for the gift evaluator.</param>
-        public LocalGiftManager(ILogger<LocalGiftManager> logger, ServiceResolver serviceResolver)
+        public LocalGiftManager(ILogger<LocalGiftManager> logger)
         {
             Ensure.Any.IsNotNull(logger);
-            Ensure.Any.IsNotNull(serviceResolver);
 
             this.logger = logger;
-            this.serviceResolver = serviceResolver;
+            this.dictionary = new Dictionary<UserType, IGiftProcess>();
+
+            this.Initialize();
         }
 
         /// <inheritdoc/>
         public Task<decimal> GetMoneyAsync(UserType type, decimal money)
         {
-            var service = this.serviceResolver.Invoke(type);
-            if (service != null)
+            if (this.dictionary.ContainsKey(type))
             {
-                return Task.FromResult(service.Calculate(money));
+                return Task.FromResult(this.dictionary[type].Calculate(money));
             }
 
             var errorMessage = string.Format("The user type {0} has not been registered in the promotions.", type.ToString());
             this.logger.LogError(errorMessage);
 
             throw new Exception(errorMessage);
+        }
+
+        private void Initialize()
+        {
+            this.dictionary.Add(UserType.Normal, new NormalGiftProcess());
+            this.dictionary.Add(UserType.SuperUser, new SuperUserGiftProcess());
+            this.dictionary.Add(UserType.Premium, new PremiumGiftProcess());
         }
     }
 }
