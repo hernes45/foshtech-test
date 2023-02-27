@@ -55,8 +55,10 @@ namespace Sat.Recruitment.Pre.Managers
             newUser.Name = user.Name;
             newUser.Phone = user.Phone;
             newUser.UserType = (UserType)user.UserType;
-            newUser.Money = await this.giftService.GetMoneyNewUserAsync(user.Money, (UserType)user.UserType).ConfigureAwait(false);
             newUser.Email = UserTools.NormalizeEmail(user.Email);
+
+            // NOTE: this maybe can be done async once the user has been created and deliver this to a different microservice. Make sense??
+            newUser.Money = await this.giftService.GetMoneyNewUserAsync(user.Money, (UserType)user.UserType).ConfigureAwait(false);
 
             if (this.ValidateInsert(newUser))
             {

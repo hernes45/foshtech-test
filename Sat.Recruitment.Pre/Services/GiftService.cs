@@ -20,6 +20,8 @@ namespace Sat.Recruitment.Pre.Services
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GiftService"/> class.
+        /// The idea of this service is to prepare to deliver the operation of evaluating
+        /// the promotion to another service.
         /// </summary>
         /// <param name="manager">The gift manager.</param>
         public GiftService(IGiftManager manager)
