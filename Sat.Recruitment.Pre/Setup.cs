@@ -16,13 +16,6 @@ namespace Sat.Recruitment.Pre
     /// <inheritdoc/>
     public class Setup : domSetup
     {
-        /// <summary>
-        /// Delegate for the giftmanager.
-        /// </summary>
-        /// <param name="type">User type.</param>
-        /// <returns>Gift process.</returns>
-        internal delegate IGiftProcess ServiceResolver(UserType type);
-
         /// <inheritdoc/>
         public override void Install(IServiceCollection serviceCollection)
         {
@@ -30,24 +23,7 @@ namespace Sat.Recruitment.Pre
 
             serviceCollection.AddTransient<IUserManager, UserManager>();
             serviceCollection.AddTransient<IGiftManager, LocalGiftManager>();
-            serviceCollection.AddTransient<NormalGiftProcess>();
-            serviceCollection.AddTransient<PremiumGiftProcess>();
-            serviceCollection.AddTransient<SuperUserGiftProcess>();
             serviceCollection.AddTransient<IGiftService, GiftService>();
-            serviceCollection.AddTransient<ServiceResolver>(serviceProvider => type =>
-            {
-                switch (type)
-                {
-                    case UserType.Normal:
-                        return serviceProvider.GetService<NormalGiftProcess>();
-                    case UserType.Premium:
-                        return serviceProvider.GetService<PremiumGiftProcess>();
-                    case UserType.SuperUser:
-                        return serviceProvider.GetService<SuperUserGiftProcess>();
-                    default:
-                        return null;
-                }
-            });
         }
     }
 }
