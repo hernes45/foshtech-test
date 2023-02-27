@@ -1,4 +1,4 @@
-// <copyright file="UnitTest1.cs" company="Fosh-Tech">
+// <copyright file="UsersControllerTest.cs" company="Fosh-Tech">
 // Copyright (c) Fosh-Tech. All rights reserved.
 // </copyright>
 
